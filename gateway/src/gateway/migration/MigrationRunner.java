@@ -56,10 +56,10 @@ public class MigrationRunner
     private boolean isAlreadyApplied(String fileName) throws SQLException
     {
         String check = "SELECT 1 FROM migrations WHERE filename = ?";
-        try (PreparedStatement stmt = connection.prepareStatement(check))
+        try (PreparedStatement statement = connection.prepareStatement(check))
         {
-            stmt.setString(1, fileName);
-            ResultSet rs = stmt.executeQuery();
+            statement.setString(1, fileName);
+            ResultSet rs = statement.executeQuery();
             return rs.next();
         }
     }
