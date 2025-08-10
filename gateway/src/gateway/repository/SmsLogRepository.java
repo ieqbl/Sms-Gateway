@@ -1,8 +1,14 @@
 package gateway.repository;
 
+import gateway.model.SmsLog;
 import java.sql.SQLException;
+import java.util.List;
+
 public interface SmsLogRepository
 {
-    void InsertSmsLogs(String from, String to, String driver, String response) throws SQLException;
-    void GetSmsLogs() throws SQLException;
+    void save(SmsLog smsLog) throws SQLException;
+    List<SmsLog> findAll() throws SQLException;
+    SmsLog findByID(int id) throws SQLException;
+    void delete(int id) throws SQLException;
+    void update(SmsLog smsLog) throws SQLException;
 }
