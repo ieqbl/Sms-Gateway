@@ -58,3 +58,4 @@ public class SmsLog
     public String getDriverResponse() { return driverResponse; }
     public void setDriverResponse(String driverResponse) { this.driverResponse = driverResponse; }
 }
+
