@@ -4,5 +4,6 @@ import Tdrivers.Twiliodriver;
 module sms.twilio
 {
     requires sms.api;
-    provides SmsDriver with Twiliodriver;
+
+    provides api.SmsDriver with Tdrivers.Twiliodriver;
 }

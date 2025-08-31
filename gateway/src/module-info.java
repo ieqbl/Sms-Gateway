@@ -8,5 +8,8 @@ module gateway {
 
     uses api.SmsDriver;
 
-    opens com.example.gateway to spring.core, spring.beans, spring.context;
+    opens gateway to spring.core, spring.beans, spring.context;
+    opens gateway.model to spring.core, spring.beans, spring.context;
+    opens gateway.repository to spring.core, spring.beans, spring.context;
+
 }
