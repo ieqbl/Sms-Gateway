@@ -15,7 +15,7 @@ public class Main
             SmsDriver driver = DriverFactory.createDriver();
             SmsGateway gateway = new SmsGateway(driver);
 
-            String number = "09120000000";
+            String number = "09120478162";
             String message = "Test with Module";
 
             gateway.send(number, message);
