@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/JPMS_SMS_Gateway.iml" filepath="$PROJECT_DIR$/JPMS_SMS_Gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gateway/gateway.iml" filepath="$PROJECT_DIR$/gateway/gateway.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sms.api/sms.api.iml" filepath="$PROJECT_DIR$/sms.api/sms.api.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sms.nexmo/sms.nexmo.iml" filepath="$PROJECT_DIR$/sms.nexmo/sms.nexmo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sms.twilio/sms.twilio.iml" filepath="$PROJECT_DIR$/sms.twilio/sms.twilio.iml" />
+    </modules>
+  </component>
+</project>
