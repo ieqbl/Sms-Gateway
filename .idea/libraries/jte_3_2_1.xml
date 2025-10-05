@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="jte-3.2.1">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gateway/src/gateway/lib/jte-3.2.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
