@@ -1,25 +1,15 @@
 package gateway.template;
 
-import gg.jte.TemplateEngine;
-import gg.jte.ContentType;
 import gg.jte.output.StringOutput;
-import gg.jte.resolve.DirectoryCodeResolver;
+import java.util.Map;
 
-public class TemplateRenderer
-{
+public class TemplateRenderer {
 
-    private final TemplateEngine engine;
-
-    public TemplateRenderer()
-    {
-        var resolver = new DirectoryCodeResolver(TemplateConfig.TemplatesPath());
-        this.engine = TemplateEngine.create(resolver, TemplateConfig.classDirectory(), ContentType.Html);
-    }
-
-    public String render(String templateName, Object model)
-    {
+    public static String render(String templateName, Map<String, Object> params) {
+        var engine = TemplateEngineProvider.getEngine();
         var output = new StringOutput();
-        engine.render(templateName, model, output);
+        engine.render(templateName, params, output);
         return output.toString();
     }
+
 }

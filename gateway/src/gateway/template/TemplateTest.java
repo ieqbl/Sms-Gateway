@@ -1,20 +1,18 @@
 package gateway.template;
 
-public class TemplateTest
-{
-    public static void main(String[] args)
-    {
-        TemplateRenderer rend = new TemplateRenderer();
+import gg.jte.TemplateEngine;
+import gg.jte.output.StringOutput;
+import gg.jte.resolve.DirectoryCodeResolver;
+import java.nio.file.Path;
+import java.util.Map;
 
-        var model = new Object()
-        {
-            public final String user = "Sir";
-        };
+public class TemplateTest {
+    public static void main(String[] args) {
+        var resolver = new DirectoryCodeResolver(Path.of("gateway/src/gateway/templates"));
+        var engine = TemplateEngine.create(resolver, Path.of("target/jte-classes"), gg.jte.ContentType.Plain);
 
-
-        String output = rend.render("index.jte",model);
-
-        System.out.println(output);
+        var output = new StringOutput();
+        engine.render("index.jte", Map.of("name", "Eghbali"), output);
+        System.out.println(output.toString());
     }
-
 }
