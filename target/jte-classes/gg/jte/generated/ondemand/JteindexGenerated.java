@@ -6,7 +6,7 @@ public final class JteindexGenerated {
 	public static void render(gg.jte.TemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, String name) {
 		jteOutput.writeContent("\r\nHello ");
 		jteOutput.writeUserContent(name);
-		jteOutput.writeContent("\r\n");
+		jteOutput.writeContent("!\r\n");
 	}
 	public static void renderMap(gg.jte.TemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, java.util.Map<String, Object> params) {
 		String name = (String)params.get("name");

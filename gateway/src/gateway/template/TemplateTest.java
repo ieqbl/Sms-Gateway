@@ -12,7 +12,7 @@ public class TemplateTest {
         var engine = TemplateEngine.create(resolver, Path.of("target/jte-classes"), gg.jte.ContentType.Plain);
 
         var output = new StringOutput();
-        engine.render("index.jte", Map.of("name", "Eghbali"), output);
+        engine.render("index.jte", Map.of("name", "Mr.Eghbali"), output);
         System.out.println(output.toString());
     }
 }
