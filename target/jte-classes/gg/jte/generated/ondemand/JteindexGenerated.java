@@ -2,11 +2,14 @@ package gg.jte.generated.ondemand;
 @SuppressWarnings("unchecked")
 public final class JteindexGenerated {
 	public static final String JTE_NAME = "index.jte";
-	public static final int[] JTE_LINE_INFO = {1,1,1,1,1,1,1,1,1,1,1,1};
-	public static void render(gg.jte.TemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor) {
-		jteOutput.writeContent("Hello @name!\r\n");
+	public static final int[] JTE_LINE_INFO = {0,0,0,0,0,2,2,2,3,3,3,0,0,0,0};
+	public static void render(gg.jte.TemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, String name) {
+		jteOutput.writeContent("\r\nHello ");
+		jteOutput.writeUserContent(name);
+		jteOutput.writeContent("\r\n");
 	}
 	public static void renderMap(gg.jte.TemplateOutput jteOutput, gg.jte.html.HtmlInterceptor jteHtmlInterceptor, java.util.Map<String, Object> params) {
-		render(jteOutput, jteHtmlInterceptor);
+		String name = (String)params.get("name");
+		render(jteOutput, jteHtmlInterceptor, name);
 	}
 }

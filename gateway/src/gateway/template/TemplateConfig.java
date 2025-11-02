@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public final class TemplateConfig
 {
-    private static final Path DEFAULT_TEMPLATES = Path.of ("gateway","src","gateway","templates");
+    private static final Path DEFAULT_TEMPLATES = Path.of ("gateway","src","gateway","template","templates");
     private static final Path DEFAULT_CLASS_DIR = Path.of ("target","jte-classes");
 
     private TemplateConfig()

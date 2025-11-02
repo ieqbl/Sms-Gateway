@@ -5,6 +5,8 @@ import gg.jte.ContentType;
 import gg.jte.TemplateEngine;
 import gg.jte.resolve.DirectoryCodeResolver;
 
+import java.nio.file.Path;
+
 import static gateway.template.TemplateConfig.TemplatesPath;
 import static gateway.template.TemplateConfig.classDirectory;
 
@@ -24,7 +26,8 @@ public final class TemplateEngineProvider
             {
                 if (engine == null)
                 {
-                    var resolver = new DirectoryCodeResolver(TemplateConfig.TemplatesPath());
+                    Path TemplatesPath = Path.of("gateway","src","gateway","template","templates");
+                    var resolver = new DirectoryCodeResolver(TemplatesPath);
                     engine = TemplateEngine.create(resolver,classDirectory(),ContentType.Html);
                 }
             }
