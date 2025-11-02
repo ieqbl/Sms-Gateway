@@ -8,7 +8,7 @@ import java.util.Map;
 
 public class TemplateTest {
     public static void main(String[] args) {
-        var resolver = new DirectoryCodeResolver(Path.of("gateway/src/gateway/templates"));
+        var resolver = new DirectoryCodeResolver(Path.of("gateway/src/gateway/template/templates"));
         var engine = TemplateEngine.create(resolver, Path.of("target/jte-classes"), gg.jte.ContentType.Plain);
 
         var output = new StringOutput();
