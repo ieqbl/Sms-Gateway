@@ -1,76 +1,40 @@
 package gateway.migration;
 
-import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.sql.*;
-import java.util.Arrays;
+import java.nio.file.Path;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 
-public class MigrationRunner
-{
+public class MigrationRunner {
+
     private final Connection connection;
-    private final String migrationsPath = "migrations";
 
-    public MigrationRunner(Connection connection)
-    {
+    public MigrationRunner(Connection connection) {
         this.connection = connection;
     }
 
-    public void run() throws Exception
-    {
-        File folder = new File(migrationsPath);
-        File[] sqlFiles = folder.listFiles((dir, name) -> name.endsWith(".sql"));
-        if (sqlFiles == null || sqlFiles.length == 0)
-        {
-            System.out.println("No migration files found.");
-            return;
-        }
+    public void run() {
+        // مسیر واقعی فایل SQL داخل پروژه
+        Path sqlPath = Path.of("migrations", "create_messages.sql");
 
-        Arrays.sort(sqlFiles);
+        try {
+            // خواندن کل فایل SQL
+            String sql = Files.readString(sqlPath);
 
-        for (File file : sqlFiles)
-        {
-            String fileName = file.getName();
-            if (isAlreadyApplied(fileName))
-            {
-                System.out.println("Already applied: " + fileName);
-                continue;
-            }
-
-            System.out.println("Applying: " + fileName);
-            String sql = Files.readString(file.toPath());
-
-            try (Statement stmt = connection.createStatement())
-            {
+            try (Statement stmt = connection.createStatement()) {
                 stmt.execute(sql);
-                markAsApplied(fileName);
+                System.out.println("✅ Migration executed successfully: " + sqlPath);
             }
-            catch (SQLException e)
-            {
-                System.out.println("Failed on: " + fileName);
-                e.printStackTrace();
-                break;
-            }
-        }
-    }
 
-    private boolean isAlreadyApplied(String fileName) throws SQLException
-    {
-        String check = "SELECT 1 FROM migrations WHERE filename = ?";
-        try (PreparedStatement statement = connection.prepareStatement(check))
-        {
-            statement.setString(1, fileName);
-            ResultSet rs = statement.executeQuery();
-            return rs.next();
-        }
-    }
+        } catch (IOException e) {
+            System.err.println("❌ Could not read SQL file: " + sqlPath);
+            e.printStackTrace();
 
-    private void markAsApplied(String fileName) throws SQLException
-    {
-        String insert = "INSERT INTO migrations (filename) VALUES (?)";
-        try (PreparedStatement stmt = connection.prepareStatement(insert))
-        {
-            stmt.setString(1, fileName);
-            stmt.executeUpdate();
+        } catch (SQLException e) {
+            System.err.println("❌ Database migration failed:");
+            e.printStackTrace();
         }
     }
 }

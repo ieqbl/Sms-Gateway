@@ -8,53 +8,48 @@ import gateway.repository.ConfigRepository;
 import gateway.repository.SmsLogRepository;
 import gg.jte.output.StringOutput;
 import gateway.template.*;
-import gateway.template.TemplateEngineProvider;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+public class Main {
+    public static void main(String[] args) {
+        try {
+            // 1️⃣ اتصال به دیتابیس
+            DbServices db = new DbServices();
+            db.connect();
 
+            // 2️⃣ اجرای مایگریشن‌ها
+            MigrationRunner migrator = new MigrationRunner(db.getConnection());
+            migrator.run();
 
-public class Main
-{
-    public static void main(String[] args)
-    {
-        List<Message> messages = Database.getMessages();
+            // 3️⃣ گرفتن دیتا برای JTE
+            Database database = new Database(db.getConnection());
+            List<Message> messages = database.getMessages();
 
+            // 4️⃣ رندر HTML
+            Map<String, Object> model = new HashMap<>();
+            model.put("messages", messages);
+            var output = new StringOutput();
+            var engine = TemplateEngineProvider.getEngine();
+            engine.render("index.jte", model, output);
+            System.out.println(output);
 
-        Map<String, Object> model = new HashMap<>();
-        model.put("message",messages);
+            // 5️⃣ ارسال پیام نمونه
+            SmsDriver driver = DriverFactory.createDriver();
+            SmsGateway gateway = new SmsGateway(driver);
+            String number = "09120478162";
+            String message = "Test with Module";
+            gateway.send(number, message);
 
-        var output = new StringOutput();
-        var engine = TemplateEngineProvider.getEngine();
-        engine.render("index.jte",model , output);
+            // 6️⃣ ذخیره در دیتابیس
+            db.saveMessage(number, message);
 
-        System.out.println(output);
+            // 7️⃣ بستن ارتباط
+            db.close();
 
-//        try
-//        {
-//            SmsDriver driver = DriverFactory.createDriver();
-//            SmsGateway gateway = new SmsGateway(driver);
-//
-//            String number = "09120478162";
-//            String message = "Test with Module";
-//
-//            gateway.send(number, message);
-//
-//            DbServices db = new DbServices();
-//            db.Connect();
-//            ConfigRepository Cr = db.getConfigRepository();
-//            SmsLogRepository Sr = db.getSmsLogRepository();
-//
-//            MigrationRunner migrator = new MigrationRunner(db.getConnection());
-//            migrator.run();
-//            db.saveMessage(number, message);
-//            db.close();
-//
-//        }
-//        catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
