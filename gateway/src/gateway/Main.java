@@ -12,22 +12,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Main {
-    public static void main(String[] args) {
-        try {
-            // 1️⃣ اتصال به دیتابیس
+public class Main
+{
+    public static void main(String[] args)
+    {
+        try
+        {
             DbServices db = new DbServices();
             db.connect();
 
-            // 2️⃣ اجرای مایگریشن‌ها
             MigrationRunner migrator = new MigrationRunner(db.getConnection());
             migrator.run();
 
-            // 3️⃣ گرفتن دیتا برای JTE
             Database database = new Database(db.getConnection());
             List<Message> messages = database.getMessages();
 
-            // 4️⃣ رندر HTML
             Map<String, Object> model = new HashMap<>();
             model.put("messages", messages);
             var output = new StringOutput();
@@ -35,20 +34,21 @@ public class Main {
             engine.render("index.jte", model, output);
             System.out.println(output);
 
-            // 5️⃣ ارسال پیام نمونه
             SmsDriver driver = DriverFactory.createDriver();
             SmsGateway gateway = new SmsGateway(driver);
             String number = "09120478162";
             String message = "Test with Module";
             gateway.send(number, message);
 
-            // 6️⃣ ذخیره در دیتابیس
             db.saveMessage(number, message);
 
-            // 7️⃣ بستن ارتباط
+            WebServer.start();
             db.close();
 
-        } catch (Exception e) {
+
+        }
+        catch (Exception e)
+        {
             e.printStackTrace();
         }
     }
