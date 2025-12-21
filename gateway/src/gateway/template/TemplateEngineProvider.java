@@ -27,10 +27,13 @@ public final class TemplateEngineProvider
                     Path templatesPath = Path.of("gateway", "src", "gateway", "template", "templates");
                     var resolver = new DirectoryCodeResolver(templatesPath);
 
+
                     engine = TemplateEngine.create(resolver, classDirectory(), ContentType.Html);
                 }
             }
         }
+
+        System.out.println(engine);
         return engine;
     }
 }

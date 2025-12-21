@@ -36,6 +36,8 @@ public class WebServer
             response.type("text/html");
             return output.toString();
         });
-
+// /messages provide list of messages has been sent
+        // /config-drivers 1.set default driver 2.driver configuration such as driver_host_address api_key
+        // /send-message
     }
 }
