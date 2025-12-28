@@ -1,35 +1,40 @@
 package gateway.database;
 
+import java.time.LocalDateTime;
 public class Message
 {
-    public int id;
-    public String phone;
-    public String content;
 
-    public Message(int id,String phone, String content)
+    private long id;
+    private String receiver;
+    private String content;
+    private String status;   // SENT | FAILED
+    private String driver;
+    private LocalDateTime createdAt;
+
+    public Message(String receiver, String content, String status, String driver, LocalDateTime createdAt)
     {
-        this.id = id;
-        this.phone = phone;
+        this.receiver = receiver;
         this.content = content;
+        this.status = status;
+        this.driver = driver;
+        this.createdAt = createdAt;
     }
 
-    public int getId()
+    public long getId()
     {
         return id;
     }
 
-    public String getPhone()
+    public void setId(long id)
     {
-        return phone;
-    }
-    public String getContent()
-    {
-        return content;
+        this.id = id;
     }
 
-    @Override
-    public String toString()
-    {
-        return "Message:{id= " +id+", phone= "+phone+", content= "+content+"}";
-    }
+    public String getReceiver() { return receiver; }
+    public String getContent() { return content; }
+    public String getStatus() { return status; }
+    public String getDriver() { return driver; }
+    public LocalDateTime getCreatedAt() { return createdAt; }
+
+
 }

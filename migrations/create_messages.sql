@@ -26,8 +26,16 @@ CREATE TABLE IF NOT EXISTS sms_logs
 
 CREATE TABLE IF NOT EXISTS messages
 (
-    id SERIAL PRIMARY KEY,
-    phone VARCHAR(255),
-    content TEXT
+    id BIGSERIAL PRIMARY KEY,
+    receiver VARCHAR(20) NOT NULL,
+    content TEXT NOT NULL,
+    status VARCHAR(10) NOT NULL,
+    driver VARCHAR(50),
+    created_at TIMESTAMP NOT NULL
 );
 
+
+ALTER TABLE messages
+ADD COLUMN status VARCHAR(20),
+ADD COLUMN driver VARCHAR(50),
+ADD COLUMN created_at TIMESTAMP NOT NULL DEFAULT NOW();

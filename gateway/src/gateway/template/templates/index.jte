@@ -1,6 +1,10 @@
 @import gateway.database.Message
 @import java.util.List
+@import java.time.format.DateTimeFormatter
 @param List<Message> messages
+
+
+@var DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")
 
 <!DOCTYPE html>
 <html>
@@ -26,12 +30,18 @@
             <th>ID</th>
             <th>Phone</th>
             <th>Content</th>
+            <th>Status</th>
+            <th>Driver</th>
+            <th>Created At</th>
         </tr>
         @for(var message : messages)
             <tr>
-                <td>${message.id}</td>
-                <td>${message.phone}</td>
-                <td>${message.content}</td>
+                <td>${message.getId()}</td>
+                <td>${message.getReceiver()}</td>
+                <td>${message.getContent()}</td>
+                <td>${message.getStatus()}</td>
+                <td>${message.getDriver()}</td>
+                <td>${message.getCreatedAt().format(formatter)}</td>
             </tr>
         @endfor
     </table>
